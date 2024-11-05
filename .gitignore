@@ -1,0 +1,10 @@
+# IDE
+.idea
+
+# Hidden files
+.*
+!.gitignore
+!.github
+
+# Python
+__pycache__
