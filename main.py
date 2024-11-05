@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def read_integer_between_numbers(prompt, mini, maximum):
     while True:
         try:
