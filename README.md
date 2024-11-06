@@ -18,6 +18,10 @@ Simple agile project
 
  * Test files to end in `_test.py` inside `tests` folder
 
+### Contributing
+
+Branch off to work on a task or feature, then once done, merge & test on the `master` branch
+
 ### Tests
 
 Run specific test file
