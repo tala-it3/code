@@ -252,4 +252,5 @@ def main():
     updating_races_file(races_location)
 
 
-main()
+if __name__ == "__main__":
+    main()
