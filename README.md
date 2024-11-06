@@ -2,12 +2,26 @@
 
 Simple agile project
 
-## Commands
+### Links
 
-#### Run test
+ * [Github Desktop](https://desktop.github.com/download)
 
-##### Specific
+ * [PyCharm (All Versions)](https://www.jetbrains.com/pycharm/download/other.html)
+
+ * [Toolbox (All Jetbrains IDEs)](https://www.jetbrains.com/toolbox-app)
+
+ * [Intellij Free Student License](https://www.jetbrains.com/shop/eform/students)
+
+### Coding Convention
+
+ * [PEP 8 Style Guide](https://peps.python.org/pep-0008)
+
+### Tests
+
+Run specific test file
+
 `python -m unittest test.{test-name}`
 
-##### All Tests
+Run all tests in folder
+
 `python -m unittest discover -s test -p '*_test.py'`
