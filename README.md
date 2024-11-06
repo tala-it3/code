@@ -22,8 +22,8 @@ Simple agile project
 
 Run specific test file
 
-`python -m unittest test.{test-name}`
+`python -m unittest tests.{test-name}`
 
 Run all tests in folder
 
-`python -m unittest discover -s test -p '*_test.py'`
+`python -m unittest discover -s tests -p '*_test.py'`
