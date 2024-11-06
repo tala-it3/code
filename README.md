@@ -16,6 +16,8 @@ Simple agile project
 
  * [PEP 8 Style Guide](https://peps.python.org/pep-0008)
 
+ * Test files to end in `_test.py` inside `tests` folder
+
 ### Tests
 
 Run specific test file
