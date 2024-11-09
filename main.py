@@ -1,15 +1,34 @@
 #!/usr/bin/env python
 
 def read_integer_between_numbers(prompt, mini, maximum):
+    """
+    Continuously prompt the user to enter an integer within a specified range.
+
+    This function asks the user to enter an integer until they provide a value that is 
+    within the inclusive range defined by `mini` and `maximum`. If the user inputs a 
+    non-integer value, an error message is shown, and the prompt repeats.
+
+    Parameters:
+    - prompt (str): The message displayed to the user when asking for input.
+    - mini (int): The minimum allowable integer value (inclusive).
+    - maximum (int): The maximum allowable integer value (inclusive).
+
+    Returns:
+    - int: The valid integer entered by the user, guaranteed to be within the specified range.
+
+    Error Handling:
+    - Prints an error message if the input is not an integer.
+    - Prints an error message if the input is outside the specified range.
+    """
     while True:
         try:
             users_input = int(input(prompt))
-            if maximum <= users_input >= mini:
+            if mini <= users_input <= maximum:
                 return users_input
             else:
                 print(f"Numbers from {mini} to {maximum} only.")
         except ValueError:
-            print("Sorry -numbor olny please")
+            print("Sorry - number only, please")
 
 
 def read_nonempty_string(prompt):
@@ -21,13 +40,27 @@ def read_nonempty_string(prompt):
 
 
 def read_integer(prompt):
+    """
+    Prompt the user to enter a non-negative integer and continue retrying until valid input is provided.
+
+    This function repeatedly prompts the user for an integer input using the specified prompt message.
+    It accepts only non-negative integers (greater than or equal to 0). If the user enters a non-integer
+    value or a negative integer, the function catches the ValueError and prints an error message,
+    then prompts the user again.
+
+    Args:
+        prompt (str): The message to display when asking the user for input.
+
+    Returns:
+        int: The first valid non-negative integer input from the user.
+    """
     while True:
         try:
             users_input = int(input(prompt))
             if users_input >= 0:
                 return users_input
         except ValueError:
-            print("Sorry -numbor olny please")
+            print("Sorry -numbers only please")
 
 
 def runners_data():
@@ -53,11 +86,19 @@ def race_results(races_location):
 
 
 def race_venues():
-    with open("races.txt") as input:
-        lines = input.readlines()
-    races_location = []
-    for line in lines:
-        races_location.append(line.strip("\n"))
+    """
+    Read race venue locations from a file and return them as a list.
+
+    This function opens the file "races.txt", reads each line, removes any surrounding 
+    whitespace (such as newline characters) along with corrisponding times, and stores each line in a list. 
+    The list of race locations is then returned.
+
+    Returns:
+    - list of str: A list containing each race venue location from the file as a separate string.
+
+    """
+    with open("races.txt") as file: 
+        races_location = [line.split(',')[0].strip() for line in file if line.strip()] 
     return races_location
 
 
