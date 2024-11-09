@@ -1,15 +1,34 @@
 #!/usr/bin/env python
 
 def read_integer_between_numbers(prompt, mini, maximum):
+    """
+    Continuously prompt the user to enter an integer within a specified range.
+
+    This function asks the user to enter an integer until they provide a value that is 
+    within the inclusive range defined by `mini` and `maximum`. If the user inputs a 
+    non-integer value, an error message is shown, and the prompt repeats.
+
+    Parameters:
+    - prompt (str): The message displayed to the user when asking for input.
+    - mini (int): The minimum allowable integer value (inclusive).
+    - maximum (int): The maximum allowable integer value (inclusive).
+
+    Returns:
+    - int: The valid integer entered by the user, guaranteed to be within the specified range.
+
+    Error Handling:
+    - Prints an error message if the input is not an integer.
+    - Prints an error message if the input is outside the specified range.
+    """
     while True:
         try:
             users_input = int(input(prompt))
-            if maximum <= users_input >= mini:
+            if mini <= users_input <= maximum:
                 return users_input
             else:
                 print(f"Numbers from {mini} to {maximum} only.")
         except ValueError:
-            print("Sorry -numbor olny please")
+            print("Sorry - number only, please")
 
 
 def read_nonempty_string(prompt):
