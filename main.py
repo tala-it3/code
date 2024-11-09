@@ -72,11 +72,19 @@ def race_results(races_location):
 
 
 def race_venues():
-    with open("races.txt") as input:
-        lines = input.readlines()
-    races_location = []
-    for line in lines:
-        races_location.append(line.strip("\n"))
+    """
+    Read race venue locations from a file and return them as a list.
+
+    This function opens the file "races.txt", reads each line, removes any surrounding 
+    whitespace (such as newline characters) along with corrisponding times, and stores each line in a list. 
+    The list of race locations is then returned.
+
+    Returns:
+    - list of str: A list containing each race venue location from the file as a separate string.
+
+    """
+    with open("races.txt") as file: 
+        races_location = [line.split(',')[0].strip() for line in file if line.strip()] 
     return races_location
 
 
