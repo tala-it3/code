@@ -40,13 +40,27 @@ def read_nonempty_string(prompt):
 
 
 def read_integer(prompt):
+    """
+    Prompt the user to enter a non-negative integer and continue retrying until valid input is provided.
+
+    This function repeatedly prompts the user for an integer input using the specified prompt message.
+    It accepts only non-negative integers (greater than or equal to 0). If the user enters a non-integer
+    value or a negative integer, the function catches the ValueError and prints an error message,
+    then prompts the user again.
+
+    Args:
+        prompt (str): The message to display when asking the user for input.
+
+    Returns:
+        int: The first valid non-negative integer input from the user.
+    """
     while True:
         try:
             users_input = int(input(prompt))
             if users_input >= 0:
                 return users_input
         except ValueError:
-            print("Sorry -numbor olny please")
+            print("Sorry -numbers only please")
 
 
 def runners_data():
