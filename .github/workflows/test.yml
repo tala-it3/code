@@ -3,12 +3,17 @@ name: Python Test
 on: push
 
 jobs:
-  test:
+  setup:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
     - name: Setup Python
       uses: actions/setup-python@v4
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
     - name: Test It
       run: python -m unittest discover -s tests -p '*_test.py'
