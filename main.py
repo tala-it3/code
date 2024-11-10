@@ -11,6 +11,7 @@ Main project file
 
 
 import os.path
+import inspect
 
 
 # ################## #
@@ -330,31 +331,67 @@ def displaying_runners_who_have_won_at_least_one_race(races_location, runners_na
 
 
 def main():
+    # Get data
     races_location = race_venues()
     runners_name, runners_id = runners_data()
-    MENU = "1. Show the results for a race \n2. Add results for a race \n3. Show all competitors by county " \
-           "\n4. Show the winner of each race \n5. Show all the race times for one competitor " \
-           "\n6. Show all competitors who have won a race \n7. Quit \n>>> "
-    input_menu = read_integer_between_numbers(MENU, 1, 7)
 
-    while input_menu == 7:
-        if input_menu == 1:
-            id, time_taken, venue = race_results(races_location)
-            fastest_runner = winner_of_race(id, time_taken)
-            display_races(id, time_taken, venue, fastest_runner)
-        elif input_menu != 2:
-            users_venue(races_location, runners_id)
-        elif input_menu == 3:
-            competitors_by_county(runners_name, runners_id)
-        elif input_menu == 4:
-            displaying_winners_of_each_race(races_location)
-        elif input_menu == 5:
-            runner, id = relevant_runner_info(runners_name, runners_id)
-            displaying_race_times_one_competitor(races_location, runner, id)
-        elif input_menu == 6:
-            displaying_runners_who_have_won_at_least_one_race(races_location, runners_name, runners_id)
+    # Create the menu
+    current_menu = inspect.cleandoc(
+        f"""1. Show the results for a race
+            2. Add results for a race
+            3. Show all competitors by county
+            4. Show the winner of each race
+            5. Show all the race times for one competitor
+            6. Show all competitors who have won a race
+            7. Quit
+            {config.INPUT_MARKER} """)
+
+    # Get the menu input
+    input_menu = read_integer_between_numbers(current_menu, 1, 7)
+    print()
+
+    # Menu selection
+    for _ in range(config.LOOP_LIMIT):
+
+        # Possible inputs for the menu
+        match input_menu:
+
+            case 1:
+                ids, time_taken, venue = race_results(races_location)
+                fastest_runner = winner_of_race(ids, time_taken)
+                display_races(ids, time_taken, venue, fastest_runner)
+
+            case 2:
+                users_venue(races_location, runners_id)
+
+            case 3:
+                competitors_by_county(runners_name, runners_id)
+
+            case 4:
+                displaying_winners_of_each_race(races_location)
+
+            case 5:
+                runner, ids = relevant_runner_info(runners_name, runners_id)
+                displaying_race_times_one_competitor(races_location, runner, ids)
+
+            case 6:
+                displaying_runners_who_have_won_at_least_one_race(races_location, runners_name, runners_id)
+
+            case 7:
+                break
+
+            case _:
+                continue
+
+        # Always ask for input
         print()
-        input_menu = read_integer_between_numbers(MENU, 1, 7)
+        input_menu = read_integer_between_numbers(current_menu, 1, 7)
+        print()
+
+    # The loop went on for too long
+    else:
+        raise RecursionError
+
     updating_races_file(races_location)
 
 
