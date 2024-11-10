@@ -34,10 +34,3 @@ class AppTests(unittest.TestCase):
             extract_info_text(False, False)
             extract_info_text([], {})
             extract_info_text({}, "")
-
-
-def suite():
-    _suite = unittest.TestSuite()
-    _suite.addTest(AppTests('test_errors'))
-    _suite.addTest(AppTests('test_pass'))
-    return _suite

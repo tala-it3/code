@@ -35,10 +35,3 @@ class AppTests(unittest.TestCase):
             read_text_file(False)
             read_text_file([])
             read_text_file({})
-
-
-def suite():
-    _suite = unittest.TestSuite()
-    _suite.addTest(AppTests('test_errors'))
-    _suite.addTest(AppTests('test_pass'))
-    return _suite
