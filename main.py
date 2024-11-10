@@ -4,7 +4,15 @@
 """
 Main project file
 """
+
+
+# ########### #
+# # Imports # #
+# ########### #
+
+
 import os.path
+
 
 # ################## #
 # # Initialisation # #
@@ -117,10 +125,10 @@ def runners_data() -> (list, list):
     """
 
     # Use our utils to parse the files
-    file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "runners.txt"), clear=True)
+    file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "runners.txt"))
 
     # Extract the data from it
-    extracted_data = utils.extract_info_text(file_data, separator=',', clear=True)
+    extracted_data = utils.extract_info_text(file_data, separator=',')
 
     # Extract the data into two lists
     runners_name = [runner[0] for runner in extracted_data]
