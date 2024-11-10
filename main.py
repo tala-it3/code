@@ -6,6 +6,14 @@ Main project file
 """
 
 
+# ########### #
+# # Imports # #
+# ########### #
+
+
+import os.path
+
+
 # ################## #
 # # Initialisation # #
 # ################## #
@@ -110,16 +118,23 @@ def read_integer(prompt):
             print("Sorry -numbers only please")
 
 
-def runners_data():
-    with open("runners.txt") as input:
-        lines = input.readlines()
-    runners_name = []
-    runners_id = []
-    for line in lines:
-        split_line = line.split(",")
-        runners_name.append(split_line[0])
-        id = split_line[1].strip("\n")
-        runners_id.append(id)
+def runners_data() -> (list, list):
+    """
+    Gets information about runner names and IDs
+    :return: List of runner names & list of runner IDs, matching in length and index
+    """
+
+    # Use our utils to parse the files
+    file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "runners.txt"))
+
+    # Extract the data from it
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+
+    # Extract the data into two lists
+    runners_name = [runner[0] for runner in extracted_data]
+    runners_id = [runner[1] for runner in extracted_data]
+
+    # Return the data
     return runners_name, runners_id
 
 

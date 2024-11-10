@@ -22,7 +22,7 @@ class AppTests(unittest.TestCase):
         """
         Simple Tests
         """
-        self.assertEqual(read_text_file(file_here("utils_read_text_file_test.txt")), "Sample\n\nEnd")
+        self.assertEqual(read_text_file(file_here("utils_read_text_file_test.txt"), clear=False), "Sample\n\nEnd")
         self.assertEqual(read_text_file(file_here("utils_read_text_file_test.txt"), clear=True), "Sample\nEnd")
         self.assertNotEqual(read_text_file(file_here("utils_read_text_file_test.txt"), clear=True), "Sample\n\nEnd")
 

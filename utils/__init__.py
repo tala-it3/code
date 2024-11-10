@@ -11,7 +11,7 @@ Helpful utility functions
 # ############# #
 
 
-def read_text_file(text_file_path: str, clear: bool = False) -> str:
+def read_text_file(text_file_path: str, clear: bool = True) -> str:
     """
     Reads a text file and loads it in to memory
     :param text_file_path: Path to the text file
@@ -47,7 +47,7 @@ def read_text_file(text_file_path: str, clear: bool = False) -> str:
     return file_contents
 
 
-def extract_info_text(text: str, separator: str = ',', clear: bool = False) -> list:
+def extract_info_text(text: str, separator: str = ',', clear: bool = True) -> list:
     """
     Extracts the information in a string by using separators
     :param text: Input text to be broken down
