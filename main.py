@@ -331,6 +331,10 @@ def displaying_runners_who_have_won_at_least_one_race(races_location, runners_na
 
 
 def main():
+    """
+    Main function to run the main logic
+    """
+
     # Get data
     races_location = race_venues()
     runners_name, runners_id = runners_data()
