@@ -20,7 +20,9 @@ Simple agile project
 
 ### Contributing
 
-Branch off to work on a task or feature, then once done, merge & test on the `master` branch
+Branch off to work on a task or feature, use a branch name descriptive of the task or feature, then once done, merge & test on the `master` branch
+
+Test files and methods do not need extensive documentation as they should be simple in nature
 
 ### Tests
 
