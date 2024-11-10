@@ -11,6 +11,10 @@ Main project file
 # ################## #
 
 
+# General configuration
+import config
+
+
 # Import all the utils
 import utils
 
