@@ -55,11 +55,28 @@ def read_integer_between_numbers(prompt, mini, maximum):
             print("Sorry - number only, please")
 
 
-def read_nonempty_string(prompt):
+def read_nonempty_string(prompt: str) -> str:
+    """
+    Read a string from the user and make sure it is not empty
+    :param prompt: The prompt to be shown to the user
+    :return: Users input
+    """
+
+    # Check if the prompt is valid
+
+    # Loop until the user inputs a valid string
     while True:
+
+        # Get users input
         users_input = input(prompt)
-        if len(users_input) > 0 and users_input.isalpha():
+
+        # Check user input
+        if users_input.isalpha():
             break
+        else:
+            print("Invalid input")
+
+    # Return the users input
     return users_input
 
 
