@@ -88,7 +88,7 @@ def read_nonempty_string(prompt: str) -> str:
 
     # If our for ended normally
     else:
-        raise ValueError("Exceeded tries")
+        raise RecursionError
 
     # Return the users input
     return users_input
