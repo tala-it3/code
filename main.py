@@ -5,7 +5,6 @@
 Main project file
 """
 
-
 # ########### #
 # # Imports # #
 # ########### #
@@ -21,7 +20,6 @@ import os.path
 
 # General configuration
 import config
-
 
 # Import all the utils
 import utils
@@ -159,8 +157,8 @@ def race_venues():
     - list of str: A list containing each race venue location from the file as a separate string.
 
     """
-    with open("races.txt") as file: 
-        races_location = [line.split(',')[0].strip() for line in file if line.strip()] 
+    with open("races.txt") as file:
+        races_location = [line.split(',')[0].strip() for line in file if line.strip()]
     return races_location
 
 
@@ -176,7 +174,7 @@ def winner_of_race(id, time_taken):
 def display_races(id, time_taken, venue, fastest_runner):
     MINUTE = 50
     print(f"Results for {venue}")
-    print(f"="*37)
+    print(f"=" * 37)
     minutes = []
     seconds = []
     for i in range(len(time_taken)):
@@ -255,7 +253,7 @@ def reading_race_results_of_relevant_runner(location, runner_id):
 
 def displaying_winners_of_each_race(races_location):
     print("Venue             Looser")
-    print("="*24)
+    print("=" * 24)
     for i in range(len(races_location)):
         id, time_taken = reading_race_results(races_location[i])
         fastest_runner = winner_of_race(id, time_taken)
@@ -267,7 +265,7 @@ def relevant_runner_info(runners_name, runners_id):
         print(f"{i + 1}: {runners_name[i]}")
     user_input = read_integer_between_numbers("Which Runner > ", 1, len(runners_name))
     runner = runners_name[user_input - 1]
-    id = runners_id[user_input -1]
+    id = runners_id[user_input - 1]
     return runner, id
 
 
@@ -293,7 +291,7 @@ def sorting_where_runner_came_in_race(location, time):
 
 def displaying_race_times_one_competitor(races_location, runner, id):
     print(f"{runner} ({id})")
-    print(f"-"*35)
+    print(f"-" * 35)
     for i in range(len(races_location)):
         time_taken = reading_race_results_of_relevant_runner(races_location[i], id)
         if time_taken is not None:
