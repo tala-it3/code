@@ -33,7 +33,7 @@ jobs:
         run: pip install pdoc
         
       - name: Run PDoc
-        run: pdoc main.py -o docs --no-show-source
+        run: pdoc main.py utils/*.py -o docs --no-show-source
         
       - name: Setup Pages
         id: pages
