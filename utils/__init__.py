@@ -56,6 +56,14 @@ def extract_info_text(text: str, separator: str = ',', clear: bool = False) -> l
     :return: Contents of all fields split
     """
 
+    # Check input types
+    if not isinstance(text, str):
+        raise TypeError("Path is not a string")
+    if not isinstance(separator, str):
+        raise TypeError("Separator is not a string")
+    if not isinstance(clear, bool):
+        raise TypeError("Clear flag it not boolean")
+
     # Create the return list
     data = []
 
