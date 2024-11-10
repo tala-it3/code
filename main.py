@@ -1,5 +1,25 @@
 #!/usr/bin/env python
 
+
+"""
+Main project file
+"""
+
+
+# ################## #
+# # Initialisation # #
+# ################## #
+
+
+# Import all the utils
+import utils
+
+
+# ############# #
+# # Functions # #
+# ############# #
+
+
 def read_integer_between_numbers(prompt, mini, maximum):
     """
     Continuously prompt the user to enter an integer within a specified range.
@@ -262,6 +282,11 @@ def displaying_runners_who_have_won_at_least_one_race(races_location, runners_na
             runners.append(name_of_runner)
     for i, fastest_runner in enumerate(winners):
         print(f"{runners[i]} ({fastest_runner})")
+
+
+# ######## #
+# # Main # #
+# ######## #
 
 
 def main():
