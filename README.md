@@ -24,6 +24,10 @@ Branch off to work on a task or feature, use a branch name descriptive of the ta
 
 Test files and methods do not need extensive documentation as they should be simple in nature
 
+### Live Documentation
+
+ * [Documentation](https://tala-it3.github.io/code)
+
 ### Tests
 
 Run specific test file
