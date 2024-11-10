@@ -30,7 +30,7 @@ class AppTests(unittest.TestCase):
         """
         Fail on infinite loop
         """
-        with self.assertRaises(ValueError):
+        with self.assertRaises(RecursionError):
             read_nonempty_string("Test ")
 
     def test_errors(self):
