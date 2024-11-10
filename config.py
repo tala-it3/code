@@ -12,4 +12,5 @@ import os.path
 ASSETS_FOLDER = "assets"
 INFO_FOLDER = os.path.join(ASSETS_FOLDER, "info")
 
-
+# Limit infinite while loops due to halt problem
+LOOP_LIMIT = 0xFF

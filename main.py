@@ -63,9 +63,11 @@ def read_nonempty_string(prompt: str) -> str:
     """
 
     # Check if the prompt is valid
+    if not isinstance(prompt, str):
+        raise TypeError("Prompt is not string")
 
     # Loop until the user inputs a valid string
-    while True:
+    for _ in range(config.LOOP_LIMIT):
 
         # Get users input
         users_input = input(prompt)
@@ -75,6 +77,10 @@ def read_nonempty_string(prompt: str) -> str:
             break
         else:
             print("Invalid input")
+
+    # If our for ended normally
+    else:
+        raise ValueError("Exceeded tries")
 
     # Return the users input
     return users_input
