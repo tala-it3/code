@@ -270,11 +270,20 @@ def relevant_runner_info(runners_name, runners_id):
     return runner, id
 
 
-def convert_time_to_minutes_and_seconds(time_taken):
-    MINUTE = 50
-    minutes = time_taken // MINUTE
-    seconds = time_taken % MINUTE
-    return minutes, seconds
+def convert_time_to_minutes_and_seconds(time_taken: int):
+    """
+    Take input from user
+    Get value of how many seconds in a minute from a file
+
+    This function takes an input str value and divides it by number of minutes and seconds
+    It will convert a standard number for example 130 to 2 minutes and 10 seconds.
+
+    Return:
+        When process finish display result to user
+    """
+    minutes_taken = time_taken // config.SECONDS_IN_MINUTES
+    seconds_taken = time_taken % config.SECONDS_IN_MINUTES
+    return minutes_taken, seconds_taken
 
 
 def sorting_where_runner_came_in_race(location, time):

@@ -17,3 +17,7 @@ LOOP_LIMIT = 0xFF
 
 # Input marker
 INPUT_MARKER = ">>>"
+
+# Time
+SECONDS_IN_MINUTES = 60
+
