@@ -163,12 +163,39 @@ def race_venues():
 
 
 def winner_of_race(id, time_taken):
-    quickest_time = min(time_taken)
-    winner = ""
-    for i in range(len(id)):
-        if quickest_time == time_taken[i]:
-            winner = id[i]
-    return winner
+    """
+    Determines the winner of a race based on the shortest time taken, ignoring times of 0.
+
+    Parameters:
+    ----------
+    id : list
+        A list of participant IDs.
+    time_taken : list
+        A list of finish times. 
+
+    Returns:
+    -------
+    str
+        The ID with the shortest completion time, excluding any times of 0.
+    """
+    # Create lists of id's and finish times, excuding times of zero
+    valid_ids = []
+    valid_times = []
+
+    for i in range(len(time_taken)):
+        if time_taken[i] > 0:
+            valid_ids.append(id[i])
+            valid_times.append(time_taken[i])
+
+    # If no participants, return an empty string
+    if not valid_ids:
+        return ""
+
+    # Find the index of the smallest time in valid_times
+    min_time_index = valid_times.index(min(valid_times))
+
+    # Return the ID of the smallest time
+    return valid_ids[min_time_index]
 
 
 def display_races(id, time_taken, venue, fastest_runner):
