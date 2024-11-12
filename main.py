@@ -13,7 +13,6 @@ Main project file
 import os.path
 import inspect
 
-
 # ################## #
 # # Initialisation # #
 # ################## #
@@ -310,12 +309,20 @@ def displaying_race_times_one_competitor(races_location, runner, id):
             print(f"{races_location[i]} {minutes} mins {seconds} secs ({came_in_race} of {number_in_race})")
 
 
-def finding_name_of_winner(fastest_runner, id, runners_name):
-    runner = ""
-    for i in range(len(id)):
-        if fastest_runner == id[i]:
-            runner = runners_name[i]
-    return runner
+def finding_name_of_winner(fastest_runner, runners_id, runners_name):
+    """
+    Finds name of fastest runner based on their ID
+
+    Function goes throgh list of runner_id to find ID that matches "fastest_runner" ID. When it finds a match
+    it gets the winners name from "runner_name" using the found ID
+
+    Returns: returns a str containing winner name if match found and if no match found returns none
+    """
+    for i in range(len(runners_id)):
+        if fastest_runner == runners_id[i]:
+            namer_of_winner = runners_name[i]
+            return namer_of_winner
+    return None
 
 
 def displaying_runners_who_have_won_at_least_one_race(races_location, runners_name, runners_id):
