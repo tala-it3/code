@@ -41,7 +41,7 @@ def read_text_file(text_file_path: str, clear: bool = True) -> str:
     # Check if we need to remove empty lines
     if clear:
         # Join all valid lines
-        file_contents = os.linesep.join([line for line in file_contents.splitlines() if line])
+        file_contents = '\n'.join([line for line in file_contents.splitlines() if line])
 
     # Return the file contents
     return file_contents
