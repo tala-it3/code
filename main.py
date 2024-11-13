@@ -238,16 +238,45 @@ def updating_races_file(races_location):
 
 
 def competitors_by_county(name, id):
-    print("Cork runners")
-    print("=" * 20)
+    """
+    Prints a list of competitors organized by county code, sorted alphabetically by name.
+
+    Parameters:
+    name (list of str): A list of competitor names.
+    id (list of str): A list of competitor IDs corresponding to each name.
+
+    Returns: None
+    """
+    # Check that name and id lists have the same length
+    if len(name) != len(id):
+        print("Error: Name and ID lists must have the same length.")
+        return
+    
+    # Create a dictionary to store competitors by their county code
+    competitors_by_code = {}
+
+    # Loop through the names and IDs to separate competitors by county code
     for i in range(len(name)):
-        if id[i].startswith("CK"):
-            print(f"{name[i]} ({id[i]})")
-    print("Kerry runners")
-    print("=" * 20)
-    for i in range(len(name)):
-        if id[i].startswith("KY"):
-            print(f"{name[i]} ({id[i]})")
+        county_code = id[i].split('-')[0]  # Get the county code
+        if county_code not in competitors_by_code:
+            competitors_by_code[county_code] = []
+        competitors_by_code[county_code].append((name[i], id[i]))
+
+    # Sort competitors within each county by name
+    for county_code in competitors_by_code:
+        competitors_by_code[county_code].sort()  
+
+    # Sort the county codes alphabetically
+    sorted_county_codes = sorted(competitors_by_code.keys())
+
+    # Print out the results
+    for county_code in sorted_county_codes:
+        print(f"{county_code} runners")
+        print("=" * 20)
+        for competitor in competitors_by_code[county_code]:
+            print(f"{competitor[0]} ({competitor[1]})")  
+        print() 
+
 
 
 def reading_race_results(location):
