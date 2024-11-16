@@ -32,6 +32,12 @@ class AppTests(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             read_text_file(12)
+
+        with self.assertRaises(TypeError):
             read_text_file(False)
+
+        with self.assertRaises(TypeError):
             read_text_file([])
+
+        with self.assertRaises(TypeError):
             read_text_file({})
