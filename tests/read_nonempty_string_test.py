@@ -39,6 +39,12 @@ class AppTests(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             read_nonempty_string(12)
+
+        with self.assertRaises(TypeError):
             read_nonempty_string(False)
+
+        with self.assertRaises(TypeError):
             read_nonempty_string([])
+
+        with self.assertRaises(TypeError):
             read_nonempty_string({})

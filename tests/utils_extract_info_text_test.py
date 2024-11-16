@@ -28,9 +28,21 @@ class AppTests(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             extract_info_text(12)
+
+        with self.assertRaises(TypeError):
             extract_info_text(False)
+
+        with self.assertRaises(TypeError):
             extract_info_text([])
+
+        with self.assertRaises(TypeError):
             extract_info_text({})
+
+        with self.assertRaises(TypeError):
             extract_info_text(False, False)
+
+        with self.assertRaises(TypeError):
             extract_info_text([], {})
+
+        with self.assertRaises(TypeError):
             extract_info_text({}, "")
