@@ -330,6 +330,8 @@ def relevant_runner_info(runners_name: [str], runners_id: [str]) -> (str, str):
         raise ValueError("Input should be a list")
     if len(runners_name) != len(runners_id):
         raise ValueError("Both lists should have the same size")
+    if len(runners_name) <= 0:
+        raise ValueError("Input lists cannot be empty")
     if not all(isinstance(each, str) for each in runners_name + runners_id):
         raise ValueError("Item in list is not a string")
 
