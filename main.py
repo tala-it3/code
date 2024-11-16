@@ -316,13 +316,38 @@ def displaying_winners_of_each_race(races_location):
         print(f"{races_location[i]:<18s}{fastest_runner}")
 
 
-def relevant_runner_info(runners_name, runners_id):
-    for i in range(len(runners_name)):
-        print(f"{i + 1}: {runners_name[i]}")
+def relevant_runner_info(runners_name: [str], runners_id: [str]) -> (str, str):
+    """
+    Returns the information of a selected runner
+
+    :param runners_name: Names of the runners
+    :param runners_id: IDs of the runners
+    :return: The runner name and runner ID
+    """
+
+    # Input checking
+    if not isinstance(runners_name, list) or not isinstance(runners_id, list):
+        raise ValueError("Input should be a list")
+    if len(runners_name) != len(runners_id):
+        raise ValueError("Both lists should have the same size")
+    if len(runners_name) <= 0:
+        raise ValueError("Input lists cannot be empty")
+    if not all(isinstance(each, str) for each in runners_name + runners_id):
+        raise ValueError("Item in list is not a string")
+
+    # Iterate all the runners and create list
+    for index in range(len(runners_name)):
+        print(f"{index + 1}: {runners_name[index]}")
+
+    # Get the users input
     user_input = read_integer_between_numbers("Which Runner > ", 1, len(runners_name))
+
+    # Extract the data from the lists
     runner = runners_name[user_input - 1]
-    id = runners_id[user_input - 1]
-    return runner, id
+    chosen_id = runners_id[user_input - 1]
+
+    # Return the data
+    return runner, chosen_id
 
 
 def convert_time_to_minutes_and_seconds(time_taken: int):
