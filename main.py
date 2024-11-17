@@ -279,30 +279,27 @@ def competitors_by_county(name, runner_id):
 
 
 def reading_race_results(location):
-    with open(f"{location}.txt") as input_type:
-        lines = input_type.readlines()
-    runner_id = []
-    time_taken = []
-    for line in lines:
-        split_line = line.split(",".strip("\n"))
-        runner_id.append(split_line[0])
-        time_taken.append(int(split_line[1].strip("\n")))
+    file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+
+    runner_id = [runner[0] for runner in extracted_data]
+    time_taken = [int(runner[1]) for runner in extracted_data]
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location, runner_id):
-    with open(f"{location}.txt") as input_type:
-        lines = input_type.readlines()
-    runner_id = []
-    time_taken = []
-    for line in lines:
-        split_line = line.split(",".strip("\n"))
-        runner_id.append(split_line[0])
-        time_taken.append(int(split_line[1].strip("\n")))
+def reading_race_results_of_relevant_runner(location, runner_id_in):
+
+    file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+
+    runner_id = [runner[0] for runner in extracted_data]
+    time_taken = [runner[1] for runner in extracted_data]
+
     for i in range(len(runner_id)):
-        if runner_id == runner_id[i]:
+        if runner_id_in == runner_id[i]:
             time_relevant_runner = time_taken[i]
             return time_relevant_runner
+
     return None
 
 
