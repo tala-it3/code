@@ -157,9 +157,9 @@ def race_venues():
     - list of str: A list containing each race venue location from the file as a separate string.
 
     """
-    with open("races.txt") as file:
-        races_location = [line.split(',')[0].strip() for line in file if line.strip()]
-    return races_location
+    file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "races.txt"))
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+    return [place[0] for place in extracted_data]
 
 
 def winner_of_race(runner_id, time_taken):
