@@ -279,40 +279,60 @@ def competitors_by_county(name, runner_id):
 
 
 def reading_race_results(location):
-    with open(f"{location}.txt") as input_type:
-        lines = input_type.readlines()
-    runner_id = []
-    time_taken = []
-    for line in lines:
-        split_line = line.split(",".strip("\n"))
-        runner_id.append(split_line[0])
-        time_taken.append(int(split_line[1].strip("\n")))
+    file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+
+    runner_id = [runner[0] for runner in extracted_data]
+    time_taken = [int(runner[1]) for runner in extracted_data]
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location, runner_id):
-    with open(f"{location}.txt") as input_type:
-        lines = input_type.readlines()
-    runner_id = []
-    time_taken = []
-    for line in lines:
-        split_line = line.split(",".strip("\n"))
-        runner_id.append(split_line[0])
-        time_taken.append(int(split_line[1].strip("\n")))
+def reading_race_results_of_relevant_runner(location, runner_id_in):
+
+    file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
+    extracted_data = utils.extract_info_text(file_data, separator=',')
+
+    runner_id = [runner[0] for runner in extracted_data]
+    time_taken = [runner[1] for runner in extracted_data]
+
     for i in range(len(runner_id)):
-        if runner_id == runner_id[i]:
+        if runner_id_in == runner_id[i]:
             time_relevant_runner = time_taken[i]
             return time_relevant_runner
+
     return None
 
 
 def displaying_winners_of_each_race(races_location):
-    print("Venue             Looser")
-    print("=" * 24)
-    for i in range(len(races_location)):
-        runner_id, time_taken = reading_race_results(races_location[i])
+    """
+    Displays the winners and losers of each race
+    :param races_location: The list of locations for each race
+    :return: None
+    """
+
+    # Check the input
+    if not isinstance(races_location, list):
+        raise ValueError("The input must be a list")
+    if len(races_location) <= 0:
+        raise ValueError("List must not be empty")
+    if not all(isinstance(each, str) for each in races_location):
+        raise ValueError("All values inside list must be strings")
+
+    # Print table
+    print(f"{'Venue' : <{config.TABLE_SIZE // 2}}{'Winner' : >{config.TABLE_SIZE // 2}}")
+    print("=" * config.TABLE_SIZE)
+
+    # Iterate the races
+    for race in races_location:
+
+        # Get the race results
+        runner_id, time_taken = reading_race_results(race)
+
+        # Get the winner of the race
         fastest_runner = winner_of_race(runner_id, time_taken)
-        print(f"{races_location[i]:<18s}{fastest_runner}")
+
+        # Print the entry in the table
+        print(f"{race : <{config.TABLE_SIZE // 2}}{fastest_runner : >{config.TABLE_SIZE // 2}}")
 
 
 def relevant_runner_info(runners_name: [str], runners_id: [str]) -> (str, str):
