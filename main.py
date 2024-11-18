@@ -373,12 +373,13 @@ def convert_time_to_minutes_and_seconds(time_taken: int):
     """
     Take input from user
     Get value of how many seconds in a minute from a file
-
     This function takes an input str value and divides it by number of minutes and seconds
     It will convert a standard number for example 130 to 2 minutes and 10 seconds.
 
+    :param time_taken: amount of time something took
+
     Return:
-        When process finish display result to user
+        When process finish display result to user and store it in minutes_taken and seconds_taken
     """
     minutes_taken = time_taken // config.SECONDS_IN_MINUTES
     seconds_taken = time_taken % config.SECONDS_IN_MINUTES
@@ -411,17 +412,17 @@ def displaying_race_times_one_competitor(races_location, runner, runner_id):
 
 def finding_name_of_winner(fastest_runner, runners_id, runners_name):
     """
-    Finds name of fastest runner based on their ID
+    Returns the name of the winner by matching fastest runners id to runner names
 
-    Function goes through list of runner_id to find ID that matches "fastest_runner" ID. When it finds a match
-    it gets the winners name from "runner_name" using the found ID
-
-    Returns: returns a str containing winner name if match found and if no match found returns none
+    :param fastest_runner: id of runner that won
+    :param runners_name: Names of the runners
+    :param runners_id: IDs of the runners
+    :return: The name of the runner that won and stored it in namer_of_winner
     """
     for i in range(len(runners_id)):
         if fastest_runner == runners_id[i]:
-            namer_of_winner = runners_name[i]
-            return namer_of_winner
+            name_of_winner = runners_name[i]
+            return name_of_winner
     return None
 
 
