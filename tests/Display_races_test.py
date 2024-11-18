@@ -3,18 +3,7 @@ from unittest.mock import patch
 from io import StringIO
 
 # The function we want to test
-def display_races(id, time_taken, venue, fastest_runner):
-    MINUTE = 50
-    print(f"Results for {venue}")
-    print(f"=" * 37)
-    minutes = []
-    seconds = []
-    for i in range(len(time_taken)):
-        minutes.append(time_taken[i] // MINUTE)
-        seconds.append(time_taken[i] % MINUTE)
-    for i in range(len(id)):
-        print(f"{id[i]:<10s} {minutes[i]} minutes and {seconds[i]} seconds")
-    print(f"{fastest_runner} won the race.")
+from main import display_races
 
 # Test case class
 class TestDisplayRaces(unittest.TestCase):
