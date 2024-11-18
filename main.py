@@ -198,15 +198,22 @@ def winner_of_race(runner_id, time_taken):
     return valid_ids[min_time_index]
 
 
-def display_races(runner_id, time_taken, venue, fastest_runner):
-    minute = 50
+def display_races(runner_id: str, time_taken: int, venue:str, fastest_runner: str) -> None:
+    """
+    Displays racing details from races file.
+    :param runner_id:
+    :param time_taken:
+    :param venue:
+    :param fastest_runner:
+    :return: Nothing
+    """
     print(f"Results for {venue}")
     print(f"=" * 37)
     minutes = []
     seconds = []
     for i in range(len(time_taken)):
-        minutes.append(time_taken[i] // minute)
-        seconds.append(time_taken[i] % minute)
+        minutes.append(time_taken[i] // config.SECONDS_IN_MINUTES)
+        seconds.append(time_taken[i] %config.SECONDS_IN_MINUTES)
     for i in range(len(runner_id)):
         print(f"{runner_id[i]:<10s} {minutes[i]} minutes and {seconds[i]} seconds")
     print(f"{fastest_runner} won the race.")
