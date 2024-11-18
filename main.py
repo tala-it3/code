@@ -231,10 +231,9 @@ def users_venue(races_location, runners_id):
 
 
 def updating_races_file(races_location):
-    connection = open(f"races.txt", "w")
-    for i in range(len(races_location)):
-        print(races_location[i], file=connection)
-    connection.close()
+    with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt")) as file:
+        for location in races_location:
+            print(location, '?', sep=',', file=file)
 
 
 def competitors_by_county(name, runner_id):
