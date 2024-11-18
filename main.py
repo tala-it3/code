@@ -212,22 +212,52 @@ def display_races(runner_id, time_taken, venue, fastest_runner):
     print(f"{fastest_runner} won the race.")
 
 
-def users_venue(races_location, runners_id):
-    while True:
-        user_location = read_nonempty_string("Where will the new race take place? ").capitalize()
+def users_venue(races_location: [str], runners_id: [str]) -> [str]:
+    """
+    Adds a runner to the venue
+
+    :param races_location: The list of locations of races
+    :param runners_id: The list of ids of the runners
+    :return: Updated list of locations
+    """
+
+    # Check the input
+    if not isinstance(races_location, list) or not isinstance(runners_id, list):
+        raise ValueError("The input must be a list")
+    if len(races_location) <= 0 or len(runners_id) <= 0:
+        raise ValueError("List must not be empty")
+    if not all(isinstance(each, str) for each in races_location + runners_id):
+        raise ValueError("All values inside list must be strings")
+
+    # Gets the location that we will add the user
+    for _ in range(config.LOOP_LIMIT):
+        user_location = read_nonempty_string("Where will the new race take place? ").lower()
+        # Check if the location is valid
         if user_location not in races_location:
             break
-    connection = open(f"{user_location}.txt", "a")
+        else:
+            print("There was already a race recorded for this place")
+    else:
+        raise RecursionError
+
+    # Update the list of locations
     races_location.append(user_location)
-    time_taken = []
-    updated_runners = []
-    for i in range(len(runners_id)):
-        time_taken_for_runner = read_integer(f"Time for {runners_id[i]} >> ")
-        if time_taken_for_runner == 0:
-            time_taken.append(time_taken_for_runner)
-            updated_runners.append(runners_id[i])
-            print(f"{runners_id[i]},{time_taken_for_runner},", file=connection)
-    connection.close()
+
+    # Open the file
+    with utils.open_text_file_write(os.path.join(config.INFO_FOLDER, f"{user_location.lower()}.txt")) as file:
+
+        # Iterate all the runners
+        for runner in runners_id:
+
+            # Get the time for the runner
+            time_taken_for_runner = read_integer(f"Time for {runner} >> ")
+
+            # Check if the time is valid
+
+            # Write it to the file
+            print(runner, time_taken_for_runner, sep=',', file=file)
+
+    # Return the updated list
 
 
 def updating_races_file(races_location):
