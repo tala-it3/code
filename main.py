@@ -482,6 +482,7 @@ def main():
 
             case 2:
                 users_venue(races_location, runners_id)
+                updating_races_file(races_location)
 
             case 3:
                 competitors_by_county(runners_name, runners_id)
@@ -510,8 +511,6 @@ def main():
     # The loop went on for too long
     else:
         raise RecursionError
-
-    updating_races_file(races_location)
 
 
 if __name__ == "__main__":
