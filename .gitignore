@@ -9,5 +9,8 @@
 # Python
 __pycache__
 
+# Ignored
+__*
+
 # Build
 docs
