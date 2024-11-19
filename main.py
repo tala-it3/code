@@ -376,20 +376,41 @@ def reading_race_results(location):
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location, runner_id_in):
+def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int:
+    """
+    Reads the race results of the relevant runner
 
-    file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
+    :param location: Location we will read the information from
+    :param runner_id_in: ID of the runner that we want information of
+    :return: The time of the runner given
+    """
+
+    # Check the inputs
+    if not isinstance(location, str) or not isinstance(runner_id_in, str):
+        raise ValueError("Input needs to be string")
+
+    # Check if the given location is valid
+    file_location = os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt")
+    if not os.path.isfile(file_location):
+        raise ValueError("The location does not exist")
+
+    # Extract the runner data
+    file_data = utils.read_text_file(file_location)
     extracted_data = utils.extract_info_text(file_data, separator=',')
 
+    # Split the information into readable format
     runner_id = [runner[0] for runner in extracted_data]
     time_taken = [runner[1] for runner in extracted_data]
 
-    for i in range(len(runner_id)):
-        if runner_id_in == runner_id[i]:
-            time_relevant_runner = time_taken[i]
-            return time_relevant_runner
+    # Check if the user is present
+    if runner_id_in not in runner_id:
+        raise ValueError("Runner was not found in the race")
 
-    return None
+    # Find the runners time
+    common_index = runner_id.index(runner_id_in)
+
+    # Return the time
+    return int(time_taken[common_index])
 
 
 def displaying_winners_of_each_race(races_location):
