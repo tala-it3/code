@@ -291,10 +291,26 @@ def updating_races_file(races_location: [str], races_qualifies: [str]) -> None:
     """
     Updates the races file with the new races information
 
+    :param races_location: New locations of the races
+    :param races_qualifies: Qualifying times for the
+    :return: Nothing
+    """
 
+    # Check the input
+    if not isinstance(races_location, list) or not isinstance(races_qualifies, list):
+        raise ValueError("The input must be a list")
+    if len(races_location) <= 0 or len(races_qualifies) <= 0:
+        raise ValueError("List must not be empty")
+    if len(races_location) != len(races_qualifies):
+        raise ValueError("Lists must be of the same length")
+    if not all(isinstance(each, str) for each in races_location + races_qualifies):
+        raise ValueError("All values inside list must be strings")
+
+    # Open the file so that we can write to it
     with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt"), append=False) as file:
-        for location in races_location:
-            print(location.capitalise(), '?', sep=',', file=file)
+        # Iterate the lists
+        for location, qualify in zip(races_location, races_qualifies):
+            print(location.capitalize(), qualify, sep=',', file=file)
 
 
 def competitors_by_county(name, runner_id):
