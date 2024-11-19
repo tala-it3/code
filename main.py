@@ -163,10 +163,11 @@ def race_venues() -> ([str], [str]):
     extracted_data = utils.extract_info_text(file_data, separator=',')
 
     # Extract into their own sets
-    places, qualifies = zip(*extracted_data)
+    places = [each[0] for each in extracted_data]
+    qualifies = [each[1] for each in extracted_data]
 
     # Return then
-    return list(places), list(qualifies)
+    return places, qualifies
 
 
 def winner_of_race(runner_id, time_taken):
