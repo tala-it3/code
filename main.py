@@ -201,10 +201,10 @@ def winner_of_race(runner_id, time_taken):
 def display_races(runner_id: str, time_taken: int, venue:str, fastest_runner: str) -> None:
     """
     Displays racing details from races file.
-    :param runner_id:
-    :param time_taken:
-    :param venue:
-    :param fastest_runner:
+    :param runner_id: Runners ID
+    :param time_taken: Time a runner took to complete race
+    :param venue: Area where the race took place
+    :param fastest_runner: Runner that complete race in fastest time
     :return: Nothing
     """
     print(f"Results for {venue}")
