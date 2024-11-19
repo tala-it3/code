@@ -199,7 +199,14 @@ def winner_of_race(runner_id, time_taken):
 
 
 def display_races(runner_id, time_taken, venue, fastest_runner):
-    minute = 50
+    """
+    :param runner_id: ID of a runner
+    :param time_taken: Time it took a runner to complete the race
+    :param venue: Area where the race took place
+    :param fastest_runner: Fastest runner that partook in the race.
+    :return: nothing
+    """
+    minute = 60
     print(f"Results for {venue}")
     print(f"=" * 37)
     minutes = []
