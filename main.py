@@ -497,16 +497,32 @@ def convert_time_to_minutes_and_seconds(time_taken: int):
 
 
 def sorting_where_runner_came_in_race(location, time):
-    with open(f"{location}.txt") as input_type:
+    """
+    Determine position of runner based on time taken and total number of runners
+    The function reads a file for a certain race location that has each runner name and time
+    separated by a comma. The function then calucates the position of that time in the sorted lists and returns the
+    position and total number of runners.
+
+    :param location: File that contains race results
+    :param time: time of runner to find position for
+
+    Return:
+        - postion of each other by rank. for example 1 is fastest 2 is second and so on.
+        - total number of runners in race
+        For example if it returns 1, 5. That means that persona came first out of 5 people.
+
+
+    """
+
+    with open(f"{location}.txt", "r") as input_type:
         lines = input_type.readlines()
     time_taken = []
     for line in lines:
-        split_line = line.split(",".strip("\n"))
-        t = int(split_line[1].strip("\n"))
+        split_line = line.strip().split(",")
+        t = int(split_line[1])
         time_taken.append(t)
-
     time_taken.sort()
-    return time_taken.index(time) + 1, len(lines)
+    return time_taken.index(int(time)) + 1, len(lines)
 
 
 def displaying_race_times_one_competitor(races_location, runner, runner_id):

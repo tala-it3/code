@@ -1,6 +1,7 @@
 import unittest
 from main import finding_name_of_winner
 
+
 class TestFindingNameOfWinner(unittest.TestCase):
 
     def test_typical_case(self):
