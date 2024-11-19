@@ -11,6 +11,26 @@ Helpful utility functions
 # ############# #
 
 
+def open_text_file_write(text_file_path: str, append: bool = True):
+    """
+    Returns a file object from the path given
+
+    :param text_file_path: Path to the file we will write to
+    :param append: Should we append to file or write
+    :return: File pointer
+    """
+
+    # Check the input
+    if not isinstance(text_file_path, str):
+        raise TypeError("Path must be string")
+
+    # Open the file
+    file = open(text_file_path, "a" if append else "w")
+
+    # Return the file path
+    return file
+
+
 def read_text_file(text_file_path: str, clear: bool = True) -> str:
     """
     Reads a text file and loads it in to memory
