@@ -145,7 +145,7 @@ def race_results(races_location):
     return runner_id, time_taken, venue
 
 
-def race_venues():
+def race_venues() -> ([str], [str]):
     """
     Read race venue locations from a file and return them as a list.
 
@@ -157,9 +157,16 @@ def race_venues():
     - list of str: A list containing each race venue location from the file as a separate string.
 
     """
+
+    # Extract information from the file
     file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "races.txt"))
     extracted_data = utils.extract_info_text(file_data, separator=',')
-    return [place[0] for place in extracted_data]
+
+    # Extract into their own sets
+    places, qualifies = zip(*extracted_data)
+
+    # Return then
+    return list(places), list(qualifies)
 
 
 def winner_of_race(runner_id, time_taken):
@@ -489,7 +496,7 @@ def main():
     """
 
     # Get data
-    races_location = race_venues()
+    races_location, races_qualifies = race_venues()
     runners_name, runners_id = runners_data()
 
     # Create the menu
