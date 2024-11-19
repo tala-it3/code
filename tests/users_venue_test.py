@@ -35,9 +35,6 @@ class AppTests(unittest.TestCase):
     # Calculate fake mean
     mean = round((sum(times) / len(times) / config.SECONDS_IN_MINUTES) * 2) / 2
 
-    print(mean)
-    print(races_means)
-
     # Mock data string
     mock_data_string = [location] + [
         str(each_time) for each_time in times
