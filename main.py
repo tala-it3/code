@@ -200,6 +200,8 @@ def winner_of_race(runner_id, time_taken):
 
 def display_races(runner_id, time_taken, venue, fastest_runner):
     """
+    Displays all runners that were in a certain race.
+
     :param runner_id: ID of a runner
     :param time_taken: Time it took a runner to complete the race
     :param venue: Area where the race took place
@@ -449,6 +451,14 @@ def sorting_where_runner_came_in_race(location, time):
 
 
 def displaying_race_times_one_competitor(races_location, runner, runner_id):
+    """
+    Allows for the user to display all races a single runner was in.
+
+    :param races_location: Location of the race
+    :param runner: Name of the runner
+    :param runner_id: ID of the runner
+    :return: nothing
+    """
     print(f"{runner} ({runner_id})")
     print(f"-" * 35)
     for i in range(len(races_location)):
@@ -476,6 +486,13 @@ def finding_name_of_winner(fastest_runner, runners_id, runners_name):
 
 
 def displaying_runners_who_have_won_at_least_one_race(races_location, runners_name, runners_id):
+    """
+    Function that allows a user to display only runners that have won a race.
+    :param races_location: Location of the race
+    :param runners_name: Names of the runners
+    :param runners_id: IDs of the runners
+    :return:
+    """
     print(f"The following runners have all won at least one race:")
     print(f"-" * 55)
     winners = []
