@@ -145,7 +145,7 @@ def race_results(races_location):
     return runner_id, time_taken, venue
 
 
-def race_venues():
+def race_venues() -> ([str], [str]):
     """
     Read race venue locations from a file and return them as a list.
 
@@ -157,9 +157,17 @@ def race_venues():
     - list of str: A list containing each race venue location from the file as a separate string.
 
     """
+
+    # Extract information from the file
     file_data = utils.read_text_file(os.path.join(config.ASSETS_FOLDER, "races.txt"))
     extracted_data = utils.extract_info_text(file_data, separator=',')
-    return [place[0] for place in extracted_data]
+
+    # Extract into their own sets
+    places = [each[0] for each in extracted_data]
+    qualifies = [each[1] for each in extracted_data]
+
+    # Return then
+    return places, qualifies
 
 
 def winner_of_race(runner_id, time_taken):
@@ -219,21 +227,24 @@ def display_races(runner_id, time_taken, venue, fastest_runner):
     print(f"{fastest_runner} won the race.")
 
 
-def users_venue(races_location: [str], runners_id: [str]) -> [str]:
+def users_venue(races_location: [str], races_qualify: [str], runners_id: [str]) -> None:
     """
     Adds a runner to the venue
 
     :param races_location: The list of locations of races
+    :param races_qualify: Qualification times
     :param runners_id: The list of ids of the runners
-    :return: Updated list of locations
+    :return: Nothing
     """
 
     # Check the input
-    if not isinstance(races_location, list) or not isinstance(runners_id, list):
+    if not isinstance(races_location, list) or not isinstance(runners_id, list) or not isinstance(races_qualify, list):
         raise ValueError("The input must be a list")
-    if len(races_location) <= 0 or len(runners_id) <= 0:
+    if len(races_location) <= 0 or len(runners_id) <= 0 or len(races_qualify) <= 0:
         raise ValueError("List must not be empty")
-    if not all(isinstance(each, str) for each in races_location + runners_id):
+    if len(races_location) != len(races_qualify):
+        raise ValueError("Lists must be of the same length")
+    if not all(isinstance(each, str) for each in races_location + races_qualify + runners_id):
         raise ValueError("All values inside list must be strings")
 
     # Gets the location that we will add the user
@@ -253,24 +264,53 @@ def users_venue(races_location: [str], runners_id: [str]) -> [str]:
     # Open the file
     with utils.open_text_file_write(os.path.join(config.INFO_FOLDER, f"{user_location.lower()}.txt")) as file:
 
+        # Create a sum for all the times
+        all_times = 0
+
         # Iterate all the runners
         for runner in runners_id:
 
             # Get the time for the runner
             time_taken_for_runner = read_integer(f"Time for {runner} >> ")
 
-            # Check if the time is valid
+            # Accumulate all the times
+            all_times += time_taken_for_runner
 
             # Write it to the file
             print(runner, time_taken_for_runner, sep=',', file=file)
 
-    # Return the updated list
+        # Calculate the mean times
+        mean_time = all_times / len(runners_id)
+        # Transform it to minutes
+        mean_minutes = round((mean_time / config.SECONDS_IN_MINUTES) * 2) / 2
+        # Add it to the list of times
+        races_qualify.append(str(mean_minutes))
 
 
-def updating_races_file(races_location):
+def updating_races_file(races_location: [str], races_qualifies: [str]) -> None:
+    """
+    Updates the races file with the new races information
+
+    :param races_location: New locations of the races
+    :param races_qualifies: Qualifying times for the
+    :return: Nothing
+    """
+
+    # Check the input
+    if not isinstance(races_location, list) or not isinstance(races_qualifies, list):
+        raise ValueError("The input must be a list")
+    if len(races_location) <= 0 or len(races_qualifies) <= 0:
+        raise ValueError("List must not be empty")
+    if len(races_location) != len(races_qualifies):
+        raise ValueError("Lists must be of the same length")
+    if not all(isinstance(each, str) for each in races_location + races_qualifies):
+        raise ValueError("All values inside list must be strings")
+
+    # Open the file so that we can write to it
     with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt"), append=False) as file:
-        for location in races_location:
-            print(location.capitalise(), '?', sep=',', file=file)
+        # Iterate the lists
+        for location, qualify in zip(races_location, races_qualifies):
+            print(location.capitalize(), qualify, sep=',', file=file)
 
 
 def competitors_by_county(name, runner_id):
@@ -502,7 +542,7 @@ def main():
     """
 
     # Get data
-    races_location = race_venues()
+    races_location, races_qualifies = race_venues()
     runners_name, runners_id = runners_data()
 
     # Create the menu
@@ -532,8 +572,8 @@ def main():
                 display_races(ids, time_taken, venue, fastest_runner)
 
             case 2:
-                users_venue(races_location, runners_id)
-                updating_races_file(races_location)
+                users_venue(races_location, races_qualifies, runners_id)
+                updating_races_file(races_location, races_qualifies)
 
             case 3:
                 competitors_by_county(runners_name, runners_id)
