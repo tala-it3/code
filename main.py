@@ -227,21 +227,24 @@ def display_races(runner_id, time_taken, venue, fastest_runner):
     print(f"{fastest_runner} won the race.")
 
 
-def users_venue(races_location: [str], runners_id: [str]) -> [str]:
+def users_venue(races_location: [str], races_qualify: [str], runners_id: [str]) -> None:
     """
     Adds a runner to the venue
 
     :param races_location: The list of locations of races
+    :param races_qualify: Qualification times
     :param runners_id: The list of ids of the runners
-    :return: Updated list of locations
+    :return: Nothing
     """
 
     # Check the input
-    if not isinstance(races_location, list) or not isinstance(runners_id, list):
+    if not isinstance(races_location, list) or not isinstance(runners_id, list) or not isinstance(races_qualify, list):
         raise ValueError("The input must be a list")
-    if len(races_location) <= 0 or len(runners_id) <= 0:
+    if len(races_location) <= 0 or len(runners_id) <= 0 or len(races_qualify) <= 0:
         raise ValueError("List must not be empty")
-    if not all(isinstance(each, str) for each in races_location + runners_id):
+    if len(races_location) != len(races_qualify):
+        raise ValueError("Lists must be of the same length")
+    if not all(isinstance(each, str) for each in races_location + races_qualify + runners_id):
         raise ValueError("All values inside list must be strings")
 
     # Gets the location that we will add the user
@@ -261,21 +264,34 @@ def users_venue(races_location: [str], runners_id: [str]) -> [str]:
     # Open the file
     with utils.open_text_file_write(os.path.join(config.INFO_FOLDER, f"{user_location.lower()}.txt")) as file:
 
+        # Create a sum for all the times
+        all_times = 0
+
         # Iterate all the runners
         for runner in runners_id:
 
             # Get the time for the runner
             time_taken_for_runner = read_integer(f"Time for {runner} >> ")
 
-            # Check if the time is valid
+            # Accumulate all the times
+            all_times += time_taken_for_runner
 
             # Write it to the file
             print(runner, time_taken_for_runner, sep=',', file=file)
 
-    # Return the updated list
+        # Calculate the mean times
+        mean_time = all_times / len(runners_id)
+        # Transform it to minutes
+        mean_minutes = round((mean_time / config.SECONDS_IN_MINUTES) * 2) / 2
+        # Add it to the list of times
+        races_qualify.append(str(mean_minutes))
 
 
-def updating_races_file(races_location):
+def updating_races_file(races_location: [str], races_qualifies: [str]) -> None:
+    """
+    Updates the races file with the new races information
+
+
     with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt"), append=False) as file:
         for location in races_location:
             print(location.capitalise(), '?', sep=',', file=file)
@@ -527,8 +543,8 @@ def main():
                 display_races(ids, time_taken, venue, fastest_runner)
 
             case 2:
-                users_venue(races_location, runners_id)
-                updating_races_file(races_location)
+                users_venue(races_location, races_qualifies, runners_id)
+                updating_races_file(races_location, races_qualifies)
 
             case 3:
                 competitors_by_county(runners_name, runners_id)

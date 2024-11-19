@@ -22,7 +22,7 @@ from main import (displaying_winners_of_each_race,
 class AppTests(unittest.TestCase):
 
     # Get some needed data
-    venues = race_venues()
+    venues, _ = race_venues()
 
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_input_one(self, mock_output):
