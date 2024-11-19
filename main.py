@@ -315,8 +315,21 @@ def competitors_by_county(name, runner_id):
 
 
 def reading_race_results(location):
+    """
+    Reads and processes race results from a text file corresponding to a specific location.
+
+    :param location: name of the text file to use
+    :return: runner_id (list of str): A list of runner IDs extracted from the file.
+           : time_taken (list of int): A list of times taken by each runner.
+    
+    """
     file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
     extracted_data = utils.extract_info_text(file_data, separator=',')
+
+# Validate and ensure all rows are properly formatted
+    for runner in extracted_data:
+        if len(runner) < 2 or not runner[0] or not runner[1].isdigit():
+            raise ValueError(f"Invalid data format: {runner}")
 
     runner_id = [runner[0] for runner in extracted_data]
     time_taken = [int(runner[1]) for runner in extracted_data]
