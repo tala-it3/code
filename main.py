@@ -376,7 +376,14 @@ def reading_race_results(location):
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location, runner_id_in):
+def reading_race_results_of_relevant_runner(location, runner_id_in) -> None:
+    """
+    Reads the race results of the relevant runner
+
+    :param location: Location we will read the information from
+    :param runner_id_in: ID of the runner that we want information of
+    :return: None
+    """
 
     file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
     extracted_data = utils.extract_info_text(file_data, separator=',')
@@ -388,8 +395,6 @@ def reading_race_results_of_relevant_runner(location, runner_id_in):
         if runner_id_in == runner_id[i]:
             time_relevant_runner = time_taken[i]
             return time_relevant_runner
-
-    return None
 
 
 def displaying_winners_of_each_race(races_location):
