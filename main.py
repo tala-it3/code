@@ -261,9 +261,9 @@ def users_venue(races_location: [str], runners_id: [str]) -> [str]:
 
 
 def updating_races_file(races_location):
-    with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt")) as file:
+    with utils.open_text_file_write(os.path.join(config.ASSETS_FOLDER, "races.txt"), append=False) as file:
         for location in races_location:
-            print(location, '?', sep=',', file=file)
+            print(location.capitalise(), '?', sep=',', file=file)
 
 
 def competitors_by_county(name, runner_id):
