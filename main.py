@@ -137,8 +137,25 @@ def runners_data() -> (list, list):
 
 
 def race_results(races_location):
+    """
+    Display a menu of race venues, prompt the user to select one, and return the 
+    race results for the selected venue.
+
+  
+    Parameters: races_location (list of str): A list of race venue names.
+
+    Returns:
+    : id (list of str): A list of runner IDs for the venue.
+    : time_taken (list of int): A list of times for each runner at the venue.
+    : venue (str): The name of the race venue.
+
+    Dependencies:
+     Calls 'read_integer_between_numbers' to validate user input.
+     Calls 'reading_race_results' to get race results for the venue.
+
+    """
     for i in range(len(races_location)):
-        print(f"{i}: {races_location[i]}")
+        print(f"{i + 1}: {races_location[i]}")
     user_input = read_integer_between_numbers("Choice > ", 1, len(races_location))
     venue = races_location[user_input - 1]
     runner_id, time_taken = reading_race_results(venue)
