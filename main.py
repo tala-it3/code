@@ -393,7 +393,7 @@ def reading_race_results(location):
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int:
+def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int or None:
     """
     Reads the race results of the relevant runner
 
@@ -421,7 +421,7 @@ def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) ->
 
     # Check if the user is present
     if runner_id_in not in runner_id:
-        raise ValueError("Runner was not found in the race")
+        return None
 
     # Find the runners time
     common_index = runner_id.index(runner_id_in)
