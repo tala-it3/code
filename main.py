@@ -542,7 +542,16 @@ def sorting_where_runner_came_in_race(location, time):
     return time_taken.index(int(time)) + 1, len(lines)
 
 
-def displaying_race_times_one_competitor(races_location, runner, runner_id):
+def displaying_race_times_one_competitor(races_location: [str], runner: str, runner_id: str) -> None:
+    """
+    Display the race times for one competitor only
+
+    :param races_location: All the race locations
+    :param runner: Runner name
+    :param runner_id: ID of the runner
+    :return: Nothing
+    """
+
     print(f"{runner} ({runner_id})")
     print(f"-" * 35)
     for i in range(len(races_location)):
