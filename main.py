@@ -531,8 +531,7 @@ def sorting_where_runner_came_in_race(location, time):
 
     """
 
-    with open(f"{location}.txt", "r") as input_type:
-        lines = input_type.readlines()
+    lines = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt")).splitlines()
     time_taken = []
     for line in lines:
         split_line = line.strip().split(",")
