@@ -228,6 +228,9 @@ def winner_of_race(runner_id: List[str], time_taken: List[int]) -> str:
 
 def display_races(runner_id: List[str], time_taken: List[int], venue: str, fastest_runner: str) -> None:
     """
+    Allows the user to search for a race by venue and the  print out the details of the runners
+    involved in that race.
+
     :param runner_id: ID of a runner
     :param time_taken: Time it took a runner to complete the race
     :param venue: Area where the race took place
@@ -611,7 +614,16 @@ def finding_name_of_winner(fastest_runner: str, runners_id: List[str], runners_n
 
 def displaying_runners_who_have_won_at_least_one_race(
         races_location: List[str], runners_name: List[str], runners_id: List[str]) -> None:
+    """
+    Returns with names runners who have won al east 1 race, this determined
+    by the runner who has the lowest time. The function will print out the name of the runner
+    along with the runner ID.
 
+    :param races_location: Location of races
+    :param runners_name: Name of runners
+    :param runners_id: Ids of runners
+    :return: None
+    """
     print(f"The following runners have all won at least one race:")
     print(f"-" * 55)
     winners = []
