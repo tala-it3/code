@@ -7,6 +7,7 @@ Unit testing of the `read_text_file` utils function
 
 import os.path
 import unittest
+
 from utils import read_text_file
 
 # Get current directory
@@ -41,3 +42,16 @@ class AppTests(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             read_text_file({})
+
+        with self.assertRaises(TypeError):
+            read_text_file({}, {})
+
+        with self.assertRaises(TypeError):
+            read_text_file("", "")
+
+    def test_file(self):
+        """
+        Test file
+        """
+        with self.assertRaises(FileNotFoundError):
+            read_text_file("somthing does not exist", False)
