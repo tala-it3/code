@@ -69,6 +69,13 @@ class AppTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             updating_races_file(["test"], [])
 
+    def test_length(self):
+        """
+        Check if we raise errors with length
+        """
+        with self.assertRaises(ValueError):
+            updating_races_file(["test", "else"], ["other"])
+
     def test_types(self):
         """
         Check if we raise errors

@@ -113,6 +113,19 @@ class AppTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             displaying_race_times_one_competitor(False, True)
 
+    def test_wrong(self):
+        """
+        Check if we raise errors with wrong items
+        """
+        with self.assertRaises(ValueError):
+            displaying_race_times_one_competitor([], "test", "test")
+
+        with self.assertRaises(ValueError):
+            displaying_race_times_one_competitor([1, 2, 3], "test", "test")
+
+        with self.assertRaises(ValueError):
+            displaying_race_times_one_competitor([True, False], "test", "test")
+
     def test_types(self):
         """
         Check if we raise errors

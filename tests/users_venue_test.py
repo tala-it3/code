@@ -99,6 +99,13 @@ class AppTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             users_venue(["test"], [],[])
 
+    def test_length(self):
+        """
+        Check if we raise errors with length
+        """
+        with self.assertRaises(ValueError):
+            users_venue(["test", "else"], ["other"], ["something"])
+
     def test_types(self):
         """
         Check if we raise errors
