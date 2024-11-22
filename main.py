@@ -13,6 +13,9 @@ Main project file
 import os.path
 import inspect
 
+from typing import *
+
+
 # ################## #
 # # Initialisation # #
 # ################## #
@@ -30,7 +33,7 @@ import utils
 # ############# #
 
 
-def read_integer_between_numbers(prompt, mini, maximum):
+def read_integer_between_numbers(prompt: str, mini: int, maximum: int) -> int:
     """
     Continuously prompt the user to enter an integer within a specified range.
 
@@ -92,7 +95,7 @@ def read_nonempty_string(prompt: str) -> str:
     return users_input
 
 
-def read_integer(prompt):
+def read_integer(prompt: str) -> int:
     """
     Prompt the user to enter a non-negative integer and continue retrying until valid input is provided.
 
@@ -116,7 +119,7 @@ def read_integer(prompt):
             print("Sorry -numbers only please")
 
 
-def runners_data() -> (list, list):
+def runners_data() -> Tuple[List[str], List[str]]:
     """
     Gets information about runner names and IDs
     :return: List of runner names & list of runner IDs, matching in length and index
@@ -136,7 +139,7 @@ def runners_data() -> (list, list):
     return runners_name, runners_id
 
 
-def race_results(races_location):
+def race_results(races_location: List[str]) -> Tuple[List[str], List[int], str]:
     """
     Display a menu of race venues, prompt the user to select one, and return the 
     race results for the selected venue.
@@ -145,9 +148,9 @@ def race_results(races_location):
     Parameters: races_location (list of str): A list of race venue names.
 
     Returns:
-    : id (list of str): A list of runner IDs for the venue.
-    : time_taken (list of int): A list of times for each runner at the venue.
-    : venue (str): The name of the race venue.
+     id (list of str): A list of runner IDs for the venue.
+     time_taken (list of int): A list of times for each runner at the venue.
+     venue (str): The name of the race venue.
 
     Dependencies:
      Calls 'read_integer_between_numbers' to validate user input.
@@ -162,7 +165,7 @@ def race_results(races_location):
     return runner_id, time_taken, venue
 
 
-def race_venues() -> ([str], [str]):
+def race_venues() -> Tuple[List[str], List[str]]:
     """
     Read race venue locations from a file and return them as a list.
 
@@ -187,7 +190,7 @@ def race_venues() -> ([str], [str]):
     return places, qualifies
 
 
-def winner_of_race(runner_id, time_taken):
+def winner_of_race(runner_id: List[str], time_taken: List[int]) -> str:
     """
     Determines the winner of a race based on the shortest time taken, ignoring times of 0.
 
@@ -223,7 +226,7 @@ def winner_of_race(runner_id, time_taken):
     return valid_ids[min_time_index]
 
 
-def display_races(runner_id, time_taken, venue, fastest_runner):
+def display_races(runner_id: List[str], time_taken: List[int], venue: str, fastest_runner: str) -> None:
     """
     :param runner_id: ID of a runner
     :param time_taken: Time it took a runner to complete the race
@@ -244,7 +247,7 @@ def display_races(runner_id, time_taken, venue, fastest_runner):
     print(f"{fastest_runner} won the race.")
 
 
-def users_venue(races_location: [str], races_qualify: [str], runners_id: [str]) -> None:
+def users_venue(races_location: List[str], races_qualify: List[str], runners_id: List[str]) -> None:
     """
     Adds a runner to the venue
 
@@ -304,7 +307,7 @@ def users_venue(races_location: [str], races_qualify: [str], runners_id: [str]) 
         races_qualify.append(str(mean_minutes))
 
 
-def updating_races_file(races_location: [str], races_qualifies: [str]) -> None:
+def updating_races_file(races_location: List[str], races_qualifies: List[str]) -> None:
     """
     Updates the races file with the new races information
 
@@ -330,7 +333,7 @@ def updating_races_file(races_location: [str], races_qualifies: [str]) -> None:
             print(location.capitalize(), qualify, sep=',', file=file)
 
 
-def competitors_by_county(name, runner_id):
+def competitors_by_county(name: List[str], runner_id: List[str]) -> None:
     """
     Prints a list of competitors organized by county code, sorted alphabetically by name.
 
@@ -371,13 +374,13 @@ def competitors_by_county(name, runner_id):
         print() 
 
 
-def reading_race_results(location):
+def reading_race_results(location: str) -> Tuple[List[str], List[int]]:
     """
     Reads and processes race results from a text file corresponding to a specific location.
 
     :param location: name of the text file to use
     :return: runner_id (list of str): A list of runner IDs extracted from the file.
-           : time_taken (list of int): A list of times taken by each runner.
+             time_taken (list of int): A list of times taken by each runner.
     
     """
     file_data = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt"))
@@ -393,7 +396,7 @@ def reading_race_results(location):
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int or None:
+def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int | None:
     """
     Reads the race results of the relevant runner
 
@@ -430,7 +433,7 @@ def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) ->
     return int(time_taken[common_index])
 
 
-def displaying_winners_of_each_race(races_location):
+def displaying_winners_of_each_race(races_location: List[str]) -> None:
     """
     Displays the winners and losers of each race
     :param races_location: The list of locations for each race
@@ -462,7 +465,7 @@ def displaying_winners_of_each_race(races_location):
         print(f"{race : <{config.TABLE_SIZE // 2}}{fastest_runner : >{config.TABLE_SIZE // 2}}")
 
 
-def relevant_runner_info(runners_name: [str], runners_id: [str]) -> (str, str):
+def relevant_runner_info(runners_name: List[str], runners_id: List[str]) -> Tuple[str, str]:
     """
     Returns the information of a selected runner
 
@@ -496,7 +499,7 @@ def relevant_runner_info(runners_name: [str], runners_id: [str]) -> (str, str):
     return runner, chosen_id
 
 
-def convert_time_to_minutes_and_seconds(time_taken: int):
+def convert_time_to_minutes_and_seconds(time_taken: int) -> Tuple[int, int]:
     """
     Take input from user
     Get value of how many seconds in a minute from a file
@@ -513,18 +516,18 @@ def convert_time_to_minutes_and_seconds(time_taken: int):
     return minutes_taken, seconds_taken
 
 
-def sorting_where_runner_came_in_race(location, time):
+def sorting_where_runner_came_in_race(location: str, time: int) -> Tuple[int, int]:
     """
     Determine position of runner based on time taken and total number of runners
     The function reads a file for a certain race location that has each runner name and time
-    separated by a comma. The function then calucates the position of that time in the sorted lists and returns the
+    separated by a comma. The function then calculates the position of that time in the sorted lists and returns the
     position and total number of runners.
 
     :param location: File that contains race results
     :param time: time of runner to find position for
 
     Return:
-        - postion of each other by rank. for example 1 is fastest 2 is second and so on.
+        - position of each other by rank. for example 1 is fastest 2 is second and so on.
         - total number of runners in race
         For example if it returns 1, 5. That means that persona came first out of 5 people.
 
@@ -541,7 +544,7 @@ def sorting_where_runner_came_in_race(location, time):
     return time_taken.index(int(time)) + 1, len(lines)
 
 
-def displaying_race_times_one_competitor(races_location: [str], runner: str, runner_id: str) -> None:
+def displaying_race_times_one_competitor(races_location: List[str], runner: str, runner_id: str) -> None:
     """
     Display the race times for one competitor only
 
@@ -590,9 +593,9 @@ def displaying_race_times_one_competitor(races_location: [str], runner: str, run
                   f"({came_in_race} of {number_in_race})")
 
 
-def finding_name_of_winner(fastest_runner, runners_id, runners_name):
+def finding_name_of_winner(fastest_runner: str, runners_id: List[str], runners_name: List[str]) -> str | None:
     """
-    Returns the name of the winner by matching fastest runners id to runner names
+    Returns the name of the winner by matching fast runners id to runner names
 
     :param fastest_runner: id of runner that won
     :param runners_name: Names of the runners
@@ -606,7 +609,9 @@ def finding_name_of_winner(fastest_runner, runners_id, runners_name):
     return None
 
 
-def displaying_runners_who_have_won_at_least_one_race(races_location, runners_name, runners_id):
+def displaying_runners_who_have_won_at_least_one_race(
+        races_location: List[str], runners_name: List[str], runners_id: List[str]) -> None:
+
     print(f"The following runners have all won at least one race:")
     print(f"-" * 55)
     winners = []
