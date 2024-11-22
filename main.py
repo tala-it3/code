@@ -393,7 +393,7 @@ def reading_race_results(location):
     return runner_id, time_taken
 
 
-def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int:
+def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) -> int or None:
     """
     Reads the race results of the relevant runner
 
@@ -421,7 +421,7 @@ def reading_race_results_of_relevant_runner(location: str, runner_id_in: str) ->
 
     # Check if the user is present
     if runner_id_in not in runner_id:
-        raise ValueError("Runner was not found in the race")
+        return None
 
     # Find the runners time
     common_index = runner_id.index(runner_id_in)
@@ -531,8 +531,7 @@ def sorting_where_runner_came_in_race(location, time):
 
     """
 
-    with open(f"{location}.txt", "r") as input_type:
-        lines = input_type.readlines()
+    lines = utils.read_text_file(os.path.join(config.INFO_FOLDER, f"{location.lower()}.txt")).splitlines()
     time_taken = []
     for line in lines:
         split_line = line.strip().split(",")
@@ -542,15 +541,53 @@ def sorting_where_runner_came_in_race(location, time):
     return time_taken.index(int(time)) + 1, len(lines)
 
 
-def displaying_race_times_one_competitor(races_location, runner, runner_id):
+def displaying_race_times_one_competitor(races_location: [str], runner: str, runner_id: str) -> None:
+    """
+    Display the race times for one competitor only
+
+    :param races_location: All the race locations
+    :param runner: Runner name
+    :param runner_id: ID of the runner
+    :return: Nothing
+    """
+
+    # Input checking
+    if not isinstance(races_location, list):
+        raise ValueError("Race locations should be a list")
+    if not isinstance(runner, str) or not isinstance(runner_id, str):
+        raise ValueError("Input should be a string")
+    if len(races_location) <= 0:
+        raise ValueError("Race locations cannot be empty")
+    if not all(isinstance(each, str) for each in races_location):
+        raise ValueError("Item in locations list is not a string")
+
+    # Verbose for the runner
+    print()
     print(f"{runner} ({runner_id})")
-    print(f"-" * 35)
-    for i in range(len(races_location)):
-        time_taken = reading_race_results_of_relevant_runner(races_location[i], runner_id)
+    print(f"-" * config.TABLE_SIZE)
+
+    # Get the length of the longest string
+    # for formatting
+    longest = len(max(races_location, key=len))
+
+    # Iterate the locations
+    for location in races_location:
+
+        # Get the time taken for the runner
+        time_taken = reading_race_results_of_relevant_runner(location, runner_id)
+
+        # Check if it is valid and not empty
         if time_taken is not None:
+
+            # Convert the times
             minutes, seconds = convert_time_to_minutes_and_seconds(time_taken)
-            came_in_race, number_in_race = sorting_where_runner_came_in_race(races_location[i], time_taken)
-            print(f"{races_location[i]} {minutes} mins {seconds} secs ({came_in_race} of {number_in_race})")
+
+            # Get extra info about the runners position
+            came_in_race, number_in_race = sorting_where_runner_came_in_race(location, time_taken)
+
+            # Print the information
+            print(f"{location.capitalize() : <{longest}} - {minutes:02d} minutes {seconds:02d} seconds "
+                  f"({came_in_race} of {number_in_race})")
 
 
 def finding_name_of_winner(fastest_runner, runners_id, runners_name):

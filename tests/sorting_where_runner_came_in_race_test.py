@@ -1,12 +1,15 @@
-import unittest
 import os
+import unittest
+
+import config
+
 from main import sorting_where_runner_came_in_race
 
 
 class TestSortingWhereRunnerCameInRace(unittest.TestCase):
     def setUp(self):
         # Create a temporary test file to see if time is in it or not
-        self.test_file_name = "test_location.txt"
+        self.test_file_name = os.path.join(config.INFO_FOLDER, "test_location.txt".lower())
         with open(self.test_file_name, "w") as file:
             file.write("John,120\n")
             file.write("Doe,115\n")
