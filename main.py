@@ -586,7 +586,7 @@ def displaying_race_times_one_competitor(races_location: [str], runner: str, run
             came_in_race, number_in_race = sorting_where_runner_came_in_race(location, time_taken)
 
             # Print the information
-            print(f"{location : <{longest}} - {minutes:02d} minutes {seconds:02d} seconds "
+            print(f"{location.capitalize() : <{longest}} - {minutes:02d} minutes {seconds:02d} seconds "
                   f"({came_in_race} of {number_in_race})")
 
 
