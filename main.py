@@ -611,7 +611,13 @@ def finding_name_of_winner(fastest_runner: str, runners_id: List[str], runners_n
 
 def displaying_runners_who_have_won_at_least_one_race(
         races_location: List[str], runners_name: List[str], runners_id: List[str]) -> None:
-
+    """
+    
+    :param races_location: Location of races
+    :param runners_name: Name of runners
+    :param runners_id: Ids of runners
+    :return: None
+    """
     print(f"The following runners have all won at least one race:")
     print(f"-" * 55)
     winners = []
