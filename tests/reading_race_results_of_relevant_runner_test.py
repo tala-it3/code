@@ -34,13 +34,27 @@ class AppTests(unittest.TestCase):
         extracted_data = utils.extract_info_text(file_data, separator=',')
 
         # Run the function we test
-        result = reading_race_results_of_relevant_runner(
+        result_runner = reading_race_results_of_relevant_runner(
             self.location,
             extracted_data[0][0]
         )
-
         # Compare results
-        self.assertEqual(int(extracted_data[0][1]), result)
+        self.assertEqual(int(extracted_data[0][1]), result_runner)
+
+        # Check function with runner not found
+        result_runner = reading_race_results_of_relevant_runner(
+            self.location,
+            "non_existent_runner"
+        )
+        # Compare results
+        self.assertIsNone(result_runner)
+
+    def test_file(self):
+        """
+        Test file
+        """
+        with self.assertRaises(ValueError):
+            reading_race_results_of_relevant_runner("somthing does not exist", "Test")
 
     def test_empty(self):
         """

@@ -45,4 +45,13 @@ class AppTests(unittest.TestCase):
             extract_info_text([], {})
 
         with self.assertRaises(TypeError):
+            extract_info_text("", {})
+
+        with self.assertRaises(TypeError):
             extract_info_text({}, "")
+
+        with self.assertRaises(TypeError):
+            extract_info_text("", "", "")
+
+        with self.assertRaises(TypeError):
+            extract_info_text("", "", {})
